@@ -1,0 +1,8 @@
+# 忽略 Google Cloud 金鑰檔案
+google-credentials.json
+
+# 忽略所有 node_modules 資料夾 (安裝套件嘅地方，唔需要上傳)
+node_modules/
+
+# 忽略所有環境變數檔案
+.env

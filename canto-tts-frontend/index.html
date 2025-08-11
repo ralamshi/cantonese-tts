@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>進階廣東話文字轉語音</title>
+    
+    <!-- 引入 Google Fonts 和 Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <!-- 引入我們自己的 CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>進階廣東話 TTS</h1>
+        <p>一個功能強大嘅文字轉語音工具</p>
+    </header>
+
+    <main id="app-container">
+        <!-- JavaScript 會根據這個模板動態生成三個區塊 -->
+        <div class="tts-block-template" style="display: none;">
+            <div class="textarea-container">
+                <textarea class="text-input" placeholder="喺度輸入文字... 例如：你好 -- 世界。--- 歡迎使用。"></textarea>
+                <div class="char-counter">0</div>
+            </div>
+            <div class="controls-grid">
+                <div class="control-item">
+                    <label>聲音</label>
+                    <select class="voice-select">
+                        <option value="yue-HK-Standard-A">女聲 A</option>
+                        <option value="yue-HK-Standard-C">女聲 C</option>
+                        <option value="yue-HK-Standard-B">男聲 B</option>
+                        <option value="yue-HK-Standard-D">男聲 D</option>
+                    </select>
+                </div>
+                <div class="control-item slider-control">
+                    <label>語速: <span class="slider-value">1.0</span></label>
+                    <input type="range" class="rate-slider" min="0.5" max="2.0" step="0.1" value="1.0">
+                </div>
+                <div class="control-item slider-control">
+                    <label>音高: <span class="slider-value">0.0</span></label>
+                    <input type="range" class="pitch-slider" min="-10.0" max="10.0" step="0.5" value="0">
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action-btn listen-btn"><i class="fa-solid fa-play"></i> 收聽</button>
+                <button class="action-btn download-btn"><i class="fa-solid fa-download"></i> 下載</button>
+                <button class="action-btn copy-btn"><i class="fa-solid fa-copy"></i> 複製</button>
+                <button class="action-btn clear-btn" style="background-color: #ff3b30;"><i class="fa-solid fa-trash"></i> 清除</button>
+                <button class="action-btn share-btn" style="background-color: #ff9500;"><i class="fa-solid fa-share-alt"></i> 分享</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>提示：使用 <code>--</code> 加入短暫停頓，使用 <code>---</code> 加入較長停頓。</p>
+        <audio id="global-audio-player" controls></audio>
+    </footer>
+
+    <!-- 引入我們自己的 JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
