@@ -1,12 +1,9 @@
-readme_content = """
 # ✨ 進階廣東話文字轉語音 (Advanced Cantonese TTS)
 
 呢個係一個功能強大、介面現代化嘅廣東話文字轉語音（TTS）網上工具。使用者可以輸入任何廣東話文字，並即時轉換成自然流暢嘅語音。此專案由零開始，一步步構建出一個完整嘅前後端分離應用，並成功部署上線。
 
 **👉 [立即體驗 Live Demo](https://cantonesetts.zeabur.app/)**
 
-![App Screenshot](https://i.imgur.com/wVv5s9o.png)
-_建議：你可以將呢張圖片下載後，自行上傳到 GitHub issue 或其他地方，然後替換上面嘅圖片連結。_
 
 ---
 
