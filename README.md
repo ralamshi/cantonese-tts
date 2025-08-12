@@ -132,9 +132,4 @@
 ## 📜 授權 (License)
 
 本專案採用 MIT License 授權。
-"""
 
-with open("README.md", "w", encoding="utf-8") as f:
-    f.write(readme_content)
-
-print("`README.md` 檔案已經成功建立，你可以下載了。")
