@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const template = document.querySelector('.tts-block-template');
     const globalAudioPlayer = document.getElementById('global-audio-player');
     
-    const BACKEND_URL = 'http://localhost:3000/api/synthesize';
+    const BACKEND_URL = 'https://cantonesetts-backend.zeabur.app/api/synthesize';
     const audioDataMap = new Map();
 
     function init() {
