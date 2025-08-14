@@ -1,61 +1,58 @@
 // ===================================================
-// 檔名: server.js (最終穩健版本)
+// 檔名: server.js (V2 版本 - 智能總機架構)
 // ===================================================
 require('dotenv').config();
 const express = require('express');
-const textToSpeech = require('@google-cloud/text-to-speech');
 const cors = require('cors');
 
-// --- Google Cloud 客戶端初始化 (保持不變) ---
-let client;
-if (process.env.GOOGLE_CREDENTIALS_JSON) {
-    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
-    client = new textToSpeech.TextToSpeechClient({ credentials });
-} else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    client = new textToSpeech.TextToSpeechClient();
-} else {
-    console.error('CRITICAL ERROR: Google Cloud credentials not found!');
-    process.exit(1);
-}
+// 我哋將唔同語音引擎嘅處理邏輯，分拆成獨立檔案，令程式碼更清晰
+// (注意：我哋暫時只會實現 Google 嘅部分)
+const { handleGoogleRequest } = require('./engine-google');
+// const { handleAzureRequest } = require('./engine-azure'); // 未來會加入
+// const { handleAmazonRequest } = require('./engine-amazon'); // 未來會加入
+// const { handleMinimaxRequest } = require('./engine-minimax'); // 未來會加入
 
 const app = express();
-app.use(cors());
+app.use(cors()); // 為咗簡單起見，暫時允許所有來源
 app.use(express.json({ limit: '5mb' }));
 
-// --- API 路由 (保持不變) ---
-app.post('/api/synthesize', async (req, res) => {
+// 新嘅 V2 API 路由
+app.post('/api/v2/synthesize', async (req, res) => {
+    // 從前端請求中，我哋而家會收到一個 'engine' 參數
+    const { engine, ...requestData } = req.body;
+
+    console.log(`Received request for engine: ${engine}`);
+
+    // 呢個就係我哋嘅「智能總機」
     try {
-        const { text, voice = 'yue-HK-Standard-A', speakingRate = 1.0, pitch = 0 } = req.body;
-        if (!text || text.trim() === '') {
-            return res.status(400).json({ error: 'Text is required' });
+        let audioContent;
+        switch (engine) {
+            case 'google':
+                audioContent = await handleGoogleRequest(requestData);
+                break;
+            // case 'azure':
+            //     audioContent = await handleAzureRequest(requestData);
+            //     break;
+            // case 'amazon':
+            //     audioContent = await handleAmazonRequest(requestData);
+            //     break;
+            // case 'minimax':
+            //     audioContent = await handleMinimaxRequest(requestData);
+            //     break;
+            default:
+                // 如果前端傳嚟一個我哋唔識嘅引擎，就回傳錯誤
+                return res.status(400).json({ error: `Unknown or unsupported engine: ${engine}` });
         }
-        const ssmlText = `<speak>${text}</speak>`;
-        const request = {
-            input: { ssml: ssmlText },
-            voice: { languageCode: 'yue-HK', name: voice },
-            audioConfig: { audioEncoding: 'MP3', speakingRate: parseFloat(speakingRate), pitch: parseFloat(pitch) },
-        };
-        const [response] = await client.synthesizeSpeech(request);
-        const audioContent = response.audioContent.toString('base64');
+        
         res.json({ audioContent });
+
     } catch (error) {
-        console.error('ERROR synthesizing speech:', error);
-        res.status(500).json({ error: 'Failed to synthesize speech', details: error.message });
+        console.error(`Error processing request for engine ${engine}:`, error);
+        res.status(500).json({ error: `Failed to synthesize speech with ${engine}`, details: error.message });
     }
 });
 
-// --- ↓↓↓ 伺服器啟動 (最關鍵嘅修改) ↓↓↓ ---
-
-// Zeabur 會透過環境變數 process.env.PORT 話俾我哋知要用邊個埠。
-// 我哋唔再用 3000 作為後備，直接用 Zeabur 指定嘅。
-const PORT = process.env.PORT;
-
-if (!PORT) {
-    console.error("CRITICAL ERROR: Port not defined by the environment. Exiting.");
-    process.exit(1);
-}
-
-// 啟動伺服器，並且明確指定監聽所有網絡介面 ('0.0.0.0')
+const PORT = process.env.PORT || 3001; // 我哋用 3001 埠，避免同 V1 嘅 3000 混淆
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`✅ Server is running and listening on all interfaces at port ${PORT}`);
+    console.log(`✅ V2 Backend Server is running and listening on port ${PORT}`);
 });

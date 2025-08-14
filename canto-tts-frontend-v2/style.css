@@ -1,0 +1,38 @@
+/* 檔名: style.css (V2 卡通風格) */
+:root {
+    --bg-color: #f0f4f8;
+    --card-bg: #ffffff;
+    --primary-color: #38a1f3;
+    --secondary-color: #2ecc71;
+    --text-color: #333;
+    --shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    --border-radius: 20px;
+}
+body {
+    font-family: 'Baloo 2', cursive;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+/* ... 篇幅所限，完整 CSS 將喺下一步提供 ... */
+/* 為咗令你先睇到個骨架，我哋暫時用住咁多先 */
+.main-container { max-width: 500px; width: 100%; text-align: center; }
+.tts-card { background: var(--card-bg); padding: 30px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
+textarea { width: 100%; height: 120px; border: 2px solid #e0e0e0; border-radius: 15px; padding: 15px; font-family: inherit; font-size: 18px; margin-bottom: 20px; box-sizing: border-box; }
+.voice-avatars { display: flex; justify-content: center; gap: 15px; margin-top: 10px; margin-bottom: 20px; }
+.voice-avatar { cursor: pointer; transition: transform 0.2s ease; }
+.voice-avatar img { width: 60px; height: 60px; border-radius: 50%; border: 4px solid transparent; }
+.voice-avatar.selected img { border-color: var(--primary-color); }
+.voice-avatar:hover { transform: scale(1.1); }
+.action-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; border: none; border-radius: 15px; font-family: inherit; font-size: 20px; font-weight: 700; color: white; cursor: pointer; transition: all 0.2s ease; }
+.action-btn img { width: 24px; }
+.speak { background-color: var(--primary-color); margin-bottom: 10px; }
+.download { background-color: var(--secondary-color); }
+.download:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+details { margin-top: 20px; }
+summary { cursor: pointer; font-weight: bold; }
