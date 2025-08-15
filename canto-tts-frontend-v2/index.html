@@ -3,36 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>得意廣東話發聲器</title>
+    <title>見字就讀 - 廣東話文字轉語音工具</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-container">
         <header class="app-header">
-            <h1>🖍️ 得意廣東話發聲器</h1>
-            <p>打啲字，聽下得意嘅聲音啦！</p>
+            <img src="https://api.iconify.design/fluent-emoji-flat/speaking-head.svg" alt="Speaking Head Logo" class="logo">
+            <h1>見字就讀</h1>
+            <p>一個簡單又得意嘅廣東話朗讀工具</p>
         </header>
 
         <main class="tts-card">
-            <textarea id="text-input" placeholder="喺呢度打字啦..."></textarea>
+            <div class="textarea-wrapper">
+                <textarea id="text-input" placeholder="喺呢度打啲嘢... 例如：今日天氣好好呀！"></textarea>
+            </div>
             
+            <div id="magic-buttons-container" class="magic-buttons"></div>
+
+            <!-- 1. 加入「使用提示」區塊 -->
+            <div class="tips-section">
+                <p>💡 **小提示：** 喺文字入面加入 `--` (短停頓) 或者 `---` (長停頓) 嚟控制節奏！</p>
+            </div>
+
             <div class="voice-section">
-                <h2>揀個得意嘅聲音：</h2>
-                <div id="voice-avatar-container" class="voice-avatars">
-                    <!-- JavaScript 會喺度動態加入聲音頭像 -->
-                </div>
+                <h2>揀一個你鍾意嘅聲音</h2>
+                <div id="voice-avatar-container" class="voice-avatars"></div>
+                <button id="more-voices-btn" class="more-voices-button">仲有更多聲音...</button>
             </div>
 
             <details class="advanced-controls">
-                <summary>進階設定 ✨</summary>
+                <summary>
+                    <img src="https://api.iconify.design/fluent-emoji-flat/control-knobs.svg" alt="Controls">
+                    <span>更多設定</span>
+                </summary>
                 <div class="controls-grid">
-                    <label>語速: <span id="rate-value">1.0</span></label>
+                    <label for="rate-slider">速度</label>
                     <input type="range" id="rate-slider" min="0.5" max="2.0" step="0.1" value="1.0">
-                    <label>音高: <span id="pitch-value">0.0</span></label>
+                    <span id="rate-value">1.0x</span>
+                    
+                    <label for="pitch-slider">音高</label>
                     <input type="range" id="pitch-slider" min="-10.0" max="10.0" step="0.5" value="0">
+                    <span id="pitch-value">+0.0</span>
                 </div>
             </details>
 
@@ -41,20 +58,32 @@
                     <img src="https://api.iconify.design/fluent-emoji-flat/play-button.svg" alt="Play">
                     收聽
                 </button>
+                <!-- 2. 加入「下載」按鈕 -->
                 <button id="download-button" class="action-btn download" disabled>
                     <img src="https://api.iconify.design/fluent-emoji-flat/down-arrow.svg" alt="Download">
                     下載
                 </button>
             </div>
+            
+            <!-- 3. 加入自訂播放器結構 -->
+            <div id="custom-player" class="custom-player hidden">
+                <button id="player-play-pause-btn" class="player-btn">
+                    <img src="https://api.iconify.design/fluent-emoji-flat/play-button.svg" alt="Play">
+                </button>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <audio id="audio-player"></audio>
         </main>
         
-        <audio id="audio-player"></audio>
-
         <footer>
-            <p>小提示：用 `---` 可以停耐啲㗎！</p>
+            <p class="slogan">用心，講好每一句說話。</p>
+            <p class="credit">Made with ❤️ and Cantonese by LoveNSay.com</p>
         </footer>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>

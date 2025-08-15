@@ -1,38 +1,341 @@
-/* 檔名: style.css (V2 卡通風格) */
+/* =================================================== */
+/* 檔名: style.css (V2.3 - 完整佈局修正)             */
+/* =================================================== */
 :root {
-    --bg-color: #f0f4f8;
-    --card-bg: #ffffff;
-    --primary-color: #38a1f3;
-    --secondary-color: #2ecc71;
-    --text-color: #333;
-    --shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-    --border-radius: 20px;
+    --primary-color: #FF8A80;  /* 蜜桃粉橙 */
+    --secondary-color: #80D8FF; /* 天空淺藍 */
+    --bg-color: #FFF8E1;       /* 奶油白 */
+    --card-bg: #FFFFFF;
+    --text-color: #424242;     /* 深炭灰 */
+    --light-text-color: #757575;
+    --border-color: #EEEEEE;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.08);
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
 }
+
 body {
-    font-family: 'Baloo 2', cursive;
+    font-family: 'Nunito', 'Klee One', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
-    padding: 20px;
+    padding: 2rem;
     box-sizing: border-box;
 }
-/* ... 篇幅所限，完整 CSS 將喺下一步提供 ... */
-/* 為咗令你先睇到個骨架，我哋暫時用住咁多先 */
-.main-container { max-width: 500px; width: 100%; text-align: center; }
-.tts-card { background: var(--card-bg); padding: 30px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
-textarea { width: 100%; height: 120px; border: 2px solid #e0e0e0; border-radius: 15px; padding: 15px; font-family: inherit; font-size: 18px; margin-bottom: 20px; box-sizing: border-box; }
-.voice-avatars { display: flex; justify-content: center; gap: 15px; margin-top: 10px; margin-bottom: 20px; }
-.voice-avatar { cursor: pointer; transition: transform 0.2s ease; }
-.voice-avatar img { width: 60px; height: 60px; border-radius: 50%; border: 4px solid transparent; }
-.voice-avatar.selected img { border-color: var(--primary-color); }
-.voice-avatar:hover { transform: scale(1.1); }
-.action-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; border: none; border-radius: 15px; font-family: inherit; font-size: 20px; font-weight: 700; color: white; cursor: pointer; transition: all 0.2s ease; }
-.action-btn img { width: 24px; }
-.speak { background-color: var(--primary-color); margin-bottom: 10px; }
-.download { background-color: var(--secondary-color); }
-.download:disabled { background-color: #bdc3c7; cursor: not-allowed; }
-details { margin-top: 20px; }
-summary { cursor: pointer; font-weight: bold; }
+
+.main-container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.app-header .logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.app-header h1 {
+    font-family: 'Klee One', cursive;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+.app-header p {
+    font-size: 1.1rem;
+    color: var(--light-text-color);
+    margin-top: 0.5rem;
+}
+
+.tts-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    margin-top: 2rem;
+    text-align: left;
+    border: 1px solid white;
+    transition: all 0.3s ease-in-out;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+    font-family: 'Nunito', 'Klee One', sans-serif;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(128, 216, 255, 0.5);
+}
+
+/* 魔法按鈕區塊佈局修正 */
+.magic-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+.magic-buttons h3 {
+    font-family: 'Klee One', cursive;
+    font-size: 1rem;
+    margin: 0;
+    color: var(--light-text-color);
+}
+.magic-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Nunito', sans-serif;
+}
+.magic-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+.magic-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 提示區塊 */
+.tips-section {
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+.tips-section p {
+    margin: 0;
+}
+
+.voice-section {
+    margin-top: 1.5rem;
+}
+
+.voice-section h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    text-align: center;
+    font-family: 'Klee One', cursive;
+}
+
+/* 聲音頭像佈局修正 */
+.voice-avatars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.voice-avatar {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.voice-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    transition: all 0.3s ease;
+    padding: 3px;
+    background-color: var(--bg-color);
+}
+
+.voice-avatar.selected img {
+    border-color: var(--primary-color);
+    transform: scale(1.15);
+}
+
+.voice-avatar:hover img {
+    transform: scale(1.1);
+}
+
+.voice-avatar p {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--light-text-color);
+    transition: color 0.3s ease;
+}
+.voice-avatar.selected p {
+    color: var(--text-color);
+}
+
+.more-voices-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: text-decoration 0.2s ease;
+    text-decoration: underline;
+}
+.more-voices-button:hover {
+    text-decoration: none;
+}
+
+.advanced-controls {
+    border-top: 1px solid var(--border-color);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.advanced-controls summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+.advanced-controls summary:hover { color: var(--primary-color); }
+.advanced-controls summary img { width: 24px; height: 24px; }
+.advanced-controls summary::-webkit-details-marker { display: none; }
+
+/* 進階設定佈局修正 */
+.controls-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.controls-grid label { font-weight: bold; }
+.controls-grid span { font-weight: 700; color: var(--light-text-color); }
+
+/* 滑桿樣式 */
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: var(--border-color); border-radius: 5px; outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--primary-color); cursor: pointer; border-radius: 50%; }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; background: var(--primary-color); cursor: pointer; border-radius: 50%; }
+
+/* 按鈕容器佈局修正 */
+.action-button-container {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-family: 'Klee One', cursive;
+    font-size: 1.4rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+.action-btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.action-btn:active:not(:disabled) { transform: translateY(-1px); }
+
+.action-btn img { width: 32px; height: 32px; }
+
+.speak { background: linear-gradient(45deg, var(--primary-color), #ffb4a2); }
+.download { background: linear-gradient(45deg, var(--secondary-color), #76D7C4); }
+.download:disabled {
+    background: #E0E0E0;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* 自訂播放器樣式 */
+.custom-player {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 50px; /* 藥丸形狀 */
+    padding: 0.5rem 1rem;
+    margin-top: 2rem;
+    transition: opacity 0.3s ease;
+}
+.custom-player.hidden {
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+}
+.player-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.player-btn img {
+    width: 32px;
+    height: 32px;
+}
+.progress-bar-container {
+    flex-grow: 1;
+    background-color: var(--border-color);
+    height: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+.custom-player span {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--light-text-color);
+    min-width: 50px;
+    text-align: center;
+}
+.custom-player span:first-of-type { text-align: right; }
+
+audio { display: none; } /* 我哋自己整咗個播放器，所以隱藏佢 */
+
+footer {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    text-align: center;
+}
