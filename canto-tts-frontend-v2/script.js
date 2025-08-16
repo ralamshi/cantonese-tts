@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 後端 API 地址 ---
     // 本地測試時用呢個 (請確保你嘅 V2 後端喺 3001 port 運行緊)
-    const BACKEND_URL = 'http://cantonese-tts-enes.zeabur.internal/api/v2/synthesize';
+    const BACKEND_URL = 'https://cantonesetts-backend.zeabur.app/api/v2/synthesize';
     // 部署後要換成 Zeabur 嘅 V2 後端網址
 
     let lastAudioBase64 = null;
